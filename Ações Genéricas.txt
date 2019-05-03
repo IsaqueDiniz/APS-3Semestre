@@ -1,0 +1,4 @@
+Disparar diálogos com NPC's
+Pegar e Largar
+Andar
+Ativar e Desativar

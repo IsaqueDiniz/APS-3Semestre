@@ -7,18 +7,27 @@ public class HUD {
 	
 	public static int HEALTH = 100;
 	
+	private long gameTimer = 0;
+	private int tempo = 100;
+	private int level = 1;
+	
 	public void tick() {
-		HEALTH--;
-		HEALTH = MainStage.clamp(HEALTH, 0, 100);
+		gameTimer ++;
 	}
 	
 	public void render (Graphics g) {
-		g.setColor(Color.gray);
-		g.fillRect(15, 15, 200, 32);
-		g.setColor(Color.green);
-		g.fillRect(15, 15, HEALTH*2, 32);
-		g.setColor(Color.white);
-		g.drawRect(15, 15, 200, 32);
+		
+		g.drawString("Tempo: " +(tempo-1),590,25);
+		g.drawString("Level: " + level, 590, 45);
+		
+	}
+	
+	public void setGameTimer (long gameTimer) {
+		this.gameTimer = gameTimer;
+	}
+	
+	public long getGameTimer() {
+		return gameTimer;
 	}
 
 }

@@ -1,6 +1,7 @@
 package Main;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public abstract class GameObject {//Players, Inimigos, Npcs, Moedas, Objetos
 	
@@ -19,8 +20,9 @@ public abstract class GameObject {//Players, Inimigos, Npcs, Moedas, Objetos
 	}
 	
 	public abstract void tick();
-	//Precisamos dela nas classes filhas por ser abstrata(?)
 	public abstract void render(Graphics g);
+	public abstract Rectangle getBounds();
+	//Os retângulos serão usados para detectar colisões
 	
 	public void setX(int x) {
 		this.x=x;

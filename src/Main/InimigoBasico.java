@@ -2,6 +2,7 @@ package Main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class InimigoBasico extends GameObject {
 
@@ -10,6 +11,10 @@ public class InimigoBasico extends GameObject {
 		
 		velX = 5;
 		velY = 5;
+	}
+	
+	public Rectangle getBounds() {
+		return new Rectangle(x,y,16,16);
 	}
 
 	public void tick() {

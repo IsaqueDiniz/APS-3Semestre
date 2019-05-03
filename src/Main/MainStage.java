@@ -14,34 +14,44 @@ import java.awt.image.BufferStrategy;
 
 
 public class MainStage extends Canvas implements Runnable {
-//O que é "implements" e "runnable"?
+	//A main agora é tratada como uma subclasse de Canvas
+	//"Runnable" é implementado para que se possa iniciar o thread em que o jogo roda
 	
 	private static final long serialVersionUID = 6264063573776638777L;
+	//Serialização da classe
 	public static final int WIDTH=1280,HEIGHT= WIDTH/16*9;
 	//Define os campos de largura e altura da instância de Window
 	
 	private Thread thread;//O jogo vai rodar inteiramente em um thread
 	private boolean running = false;//Variável usada para inicializar o jogo em si
+	
 	private Handler handler;//Declara a classe Handler
-	private HUD hud;
+	private HUD hud;//Barra de vida
+	private Spawner spawn;
 	
 	public MainStage(){//Constructor
 		handler = new Handler();
-		//Instancia a classe handler
+		//Instancia um handler que irá ler e atualizar os objetos a serem renderizados
+		
 		this.addKeyListener(new KeyInput(handler));
 		//Diz para o jogo "ouvir" os inputs
+		
 		new Window(WIDTH, HEIGHT, "The game.", this);
-		hud = new HUD();
+		//Instancia/roda a janela do jogo
 		//Instância da janela do jogo
 		//Ao criá-la, o método start() é chamado
-		handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player));
-		//Adiciona um player á janela no centro
-		handler.addObject(new InimigoBasico(WIDTH/2-32, HEIGHT/2-32, ID.InimigoBasico));
+		
+		hud = new HUD();
+		spawn = new Spawner(handler, hud);
+		
+		handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player, handler ));
+		//O handler diciona um player á janela no centro
+		//handler.addObject(new InimigoBasico(32,32, ID.InimigoBasico));
 	}
 	
 	public synchronized void start() {//É chamado na classe Window para inicializar o thread
 	//Método usado em Window
-		thread = new Thread(this);//Seleciona o private thread criado nesta classe
+		thread = new Thread(this);//Instancia o private thread chamado nesta classe
 		thread.start();//Inicia o thread
 		running = true;//Diz que o thread está on e chama o método run() em while(running)
 	}
@@ -99,6 +109,7 @@ public class MainStage extends Canvas implements Runnable {
 	private void tick(){//Onde rola a lógica do jogo
 		handler.tick();//Executa o método criado na classe Handler
 		hud.tick();
+		spawn.tick();
 	}
 	
 	private void render(){
