@@ -3,7 +3,7 @@ package Main;
 public class Spawner {
 	
 	private Handler handler;
-	private HUD hud;//Mesmo sendo static, a variável HEALTH na classe HUD, ela é instanciada para prevenir erros
+	private HUD hud;//Mesmo sendo static, a variï¿½vel HEALTH na classe HUD, ela ï¿½ instanciada para prevenir erros
 	
 	private int gameTimerKeep = 0;
 	
@@ -13,8 +13,10 @@ public class Spawner {
 	}
 	
 	public void tick() {
-		gameTimerKeep++;
+		
 	}
+	
+	
 	
 	
 

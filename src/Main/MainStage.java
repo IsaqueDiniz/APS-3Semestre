@@ -2,28 +2,32 @@
 
 package Main;
 
-//awt contém classes para uso de gráficos e imagens
+//awt contï¿½m classes para uso de grï¿½ficos e imagens
 
-import java.awt.Canvas;//Canvas é uma classe cujos componentes representam áreas retangulares vazias da tela
-import java.awt.Color;//Encapsula cores RGB em um determinado espaço
-import java.awt.Graphics;//Classe base para que a aplicação possa "desenhar" gráficos em componentes
+import java.awt.Canvas;//Canvas ï¿½ uma classe cujos componentes representam ï¿½reas retangulares vazias da tela
+import java.awt.Color;//Encapsula cores RGB em um determinado espaï¿½o
+import java.awt.Graphics;//Classe base para que a aplicaï¿½ï¿½o possa "desenhar" grï¿½ficos em componentes
 import java.awt.image.BufferStrategy;
 //image=Super-classe daquelas que representam imagens
-/*BufferStrategy() Usado para determinar quantos buffersserão utilizados*/
-//awt contém todas as classes usadas para criar interfaces
+/*BufferStrategy() Usado para determinar quantos buffersserï¿½o utilizados*/
+//awt contï¿½m todas as classes usadas para criar interfaces
 
 
 public class MainStage extends Canvas implements Runnable {
-	//A main agora é tratada como uma subclasse de Canvas
-	//"Runnable" é implementado para que se possa iniciar o thread em que o jogo roda
+	//A main agora ï¿½ tratada como uma subclasse de Canvas
+	//"Runnable" ï¿½ implementado para que se possa iniciar o thread em que o jogo roda
 	
+	private int segundos = 0;
+	private int minutos = 0;
+	private int horas = 0;
+
 	private static final long serialVersionUID = 6264063573776638777L;
-	//Serialização da classe
+	//Serializaï¿½ï¿½o da classe
 	public static final int WIDTH=1280,HEIGHT= WIDTH/16*9;
-	//Define os campos de largura e altura da instância de Window
+	//Define os campos de largura e altura da instï¿½ncia de Window
 	
 	private Thread thread;//O jogo vai rodar inteiramente em um thread
-	private boolean running = false;//Variável usada para inicializar o jogo em si
+	private boolean running = false;//Variï¿½vel usada para inicializar o jogo em si
 	
 	private Handler handler;//Declara a classe Handler
 	private HUD hud;//Barra de vida
@@ -31,59 +35,59 @@ public class MainStage extends Canvas implements Runnable {
 	
 	public MainStage(){//Constructor
 		handler = new Handler();
-		//Instancia um handler que irá ler e atualizar os objetos a serem renderizados
+		//Instancia um handler que irï¿½ ler e atualizar os objetos a serem renderizados
 		
 		this.addKeyListener(new KeyInput(handler));
 		//Diz para o jogo "ouvir" os inputs
 		
 		new Window(WIDTH, HEIGHT, "The game.", this);
 		//Instancia/roda a janela do jogo
-		//Instância da janela do jogo
-		//Ao criá-la, o método start() é chamado
+		//Instï¿½ncia da janela do jogo
+		//Ao criï¿½-la, o mï¿½todo start() ï¿½ chamado
 		
 		hud = new HUD();
 		spawn = new Spawner(handler, hud);
 		
 		handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player, handler ));
-		//O handler diciona um player á janela no centro
+		//O handler diciona um player ï¿½ janela no centro
 		//handler.addObject(new InimigoBasico(32,32, ID.InimigoBasico));
 	}
 	
-	public synchronized void start() {//É chamado na classe Window para inicializar o thread
-	//Método usado em Window
+	public synchronized void start() {//ï¿½ chamado na classe Window para inicializar o thread
+	//Mï¿½todo usado em Window
 		thread = new Thread(this);//Instancia o private thread chamado nesta classe
 		thread.start();//Inicia o thread
-		running = true;//Diz que o thread está on e chama o método run() em while(running)
+		running = true;//Diz que o thread estï¿½ on e chama o mï¿½todo run() em while(running)
 	}
 	
 	public synchronized void stop() {
-		try {//Se podemos fazer, faça...
+		try {//Se podemos fazer, faï¿½a...
 			thread.join();//Para o thread
-			running = false;//Diz que o thread está off
-		}catch(Exception e){//...Se não, mostre-me o erro
+			running = false;//Diz que o thread estï¿½ off
+		}catch(Exception e){//...Se nï¿½o, mostre-me o erro
 			e.printStackTrace();//Reporta erros no console
 		}
 		}
 	
 	public void run() {
 	//Game loop - A velocidade na qual o jogo roda
-	//O loop configura uma velocidade constante em que o jogo vai operar além de renderizá-lo
-	//Ele impede o pc de executar cada loop o mais rápido possível e o limita
+	//O loop configura uma velocidade constante em que o jogo vai operar alï¿½m de renderizï¿½-lo
+	//Ele impede o pc de executar cada loop o mais rï¿½pido possï¿½vel e o limita
 		
 		this.requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;//Quantos ticks por segundo
 		double ns = 1000000000 / amountOfTicks;//Quanto tempo em nanosegundos 1 frame tem
 		double delta = 0;
-		//Diferença em nanosegundos entre o sistema e o último tick
-		//Quando este valor é >1, o tick é chamado e a diferença volta a ser 0
-		long timer = System.currentTimeMillis();//Timer para a próxima vez que o frame vai atualizar
+		//Diferenï¿½a em nanosegundos entre o sistema e o ï¿½ltimo tick
+		//Quando este valor ï¿½ >1, o tick ï¿½ chamado e a diferenï¿½a volta a ser 0
+		long timer = System.currentTimeMillis();//Timer para a prï¿½xima vez que o frame vai atualizar
 		int frames = 0;
 		
 		while(running) {
 			long now = System.nanoTime();//O segundo no tempo em que estamos, literalmente o presente
 			delta += (now - lastTime) / ns;
-			/*Diferença entre o nanosegundo atual e o nanosegundo em 
+			/*Diferenï¿½a entre o nanosegundo atual e o nanosegundo em 
 			que o loop foi executado*/
 			lastTime = now;
 			while(delta >= 1) {//Atualiza o frame
@@ -91,14 +95,15 @@ public class MainStage extends Canvas implements Runnable {
 				delta--;
 			}
 			if(running)
-			/*O jogo atualiza apenas, se já tiver passado tempo o suficiente para
+			/*O jogo atualiza apenas, se jï¿½ tiver passado tempo o suficiente para
 			completar outro loop*/
-				render();//Chama o método render()
+				render();//Chama o mï¿½todo render()
 			frames++;
 			
 			if(System.currentTimeMillis() - timer > 1000) {//Intervalo em que o fps vai atualizar, no caso a cada 1000ns
 				timer += 1000;
-				System.out.println("FPS" + frames);
+				
+				System.out.println("frames" + frames);
 				frames = 0;
 			}
 			
@@ -106,8 +111,8 @@ public class MainStage extends Canvas implements Runnable {
 		stop();
 	}
 	
-	private void tick(){//Onde rola a lógica do jogo
-		handler.tick();//Executa o método criado na classe Handler
+	private void tick(){//Onde rola a lï¿½gica do jogo
+		handler.tick();//Executa o mï¿½todo criado na classe Handler
 		hud.tick();
 		spawn.tick();
 	}
@@ -115,17 +120,17 @@ public class MainStage extends Canvas implements Runnable {
 	private void render(){
 		BufferStrategy bs = this.getBufferStrategy();//Criado um buffer strategy
 		if(bs == null){
-			this.createBufferStrategy(3);//Quantos buffers haverão
+			this.createBufferStrategy(3);//Quantos buffers haverï¿½o
 			return;
 		}
 		
-		//limpa e chama um objeto gráfico "g"
+		//limpa e chama um objeto grï¿½fico "g"
 		Graphics g = bs.getDrawGraphics();
 		
 		g.setColor(Color.black);//Setta a cor da tela para preto
 		g.fillRect(0, 0, WIDTH, HEIGHT);//Pega os valores definidos para o tamanho da tela em "final int"
 		
-		handler.render(g);//Renderiza os GameObjects na tela chamando o método handler
+		handler.render(g);//Renderiza os GameObjects na tela chamando o mï¿½todo handler
 		
 		hud.render(g);//Renderiza o hud
 		
@@ -143,7 +148,7 @@ public class MainStage extends Canvas implements Runnable {
 	}
 	
 	public static void main (String args[]) {
-		new MainStage();//Criada nova instância que vai chamar o Constructor
+		new MainStage();//Criada nova instï¿½ncia que vai chamar o Constructor
 	}
 
 }
