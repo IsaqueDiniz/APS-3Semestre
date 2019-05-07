@@ -2,25 +2,20 @@
 
 package Main;
 
-//awt cont�m classes para uso de gr�ficos e imagens
+/*awt cont�m classes para uso de gr�ficos e imagens*/
 
 import java.awt.Canvas;//Canvas � uma classe cujos componentes representam �reas retangulares vazias da tela
 import java.awt.Color;//Encapsula cores RGB em um determinado espa�o
 import java.awt.Graphics;//Classe base para que a aplica��o possa "desenhar" gr�ficos em componentes
 import java.awt.image.BufferStrategy;
-//image=Super-classe daquelas que representam imagens
-/*BufferStrategy() Usado para determinar quantos buffersser�o utilizados*/
-//awt cont�m todas as classes usadas para criar interfaces
-
+/*image=Super-classe daquelas que representam imagens
+BufferStrategy() Usado para determinar quantos buffersser�o utilizados
+awt cont�m todas as classes usadas para criar interfaces*/
 
 public class MainStage extends Canvas implements Runnable {
-	//A main agora � tratada como uma subclasse de Canvas
-	//"Runnable" � implementado para que se possa iniciar o thread em que o jogo roda
+	/*A main agora � tratada como uma subclasse de Canvas
+	"Runnable" � implementado para que se possa iniciar o thread em que o jogo roda*/
 	
-	private int segundos = 0;
-	private int minutos = 0;
-	private int horas = 0;
-
 	private static final long serialVersionUID = 6264063573776638777L;
 	//Serializa��o da classe
 	public static final int WIDTH=1280,HEIGHT= WIDTH/16*9;
@@ -31,30 +26,31 @@ public class MainStage extends Canvas implements Runnable {
 	
 	private Handler handler;//Declara a classe Handler
 	private HUD hud;//Barra de vida
-	private Spawner spawn;
+	private Spawner spawner;
+	private MenuState menuState;
 	
-	public MainStage(){//Constructor
+	public MainStage(){
 		handler = new Handler();
 		//Instancia um handler que ir� ler e atualizar os objetos a serem renderizados
-		
+		hud = new HUD();
 		this.addKeyListener(new KeyInput(handler));
 		//Diz para o jogo "ouvir" os inputs
-		
 		new Window(WIDTH, HEIGHT, "The game.", this);
-		//Instancia/roda a janela do jogo
-		//Inst�ncia da janela do jogo
-		//Ao cri�-la, o m�todo start() � chamado
-		
-		hud = new HUD();
-		spawn = new Spawner(handler, hud);
-		
-		handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player, handler ));
-		//O handler diciona um player � janela no centro
-		//handler.addObject(new InimigoBasico(32,32, ID.InimigoBasico));
-	}
+		/*Instancia/roda a janela do jogo
+		inst�ncia da janela do jogo
+		ao cri�-la, o m�todo start() � chamado*/
+			if(hud.getLevel() == 0)
+				menuState = new MenuState();
+			if(hud.getLevel() == 1)
+				handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player, handler ));
+			/*O handler diciona um player � janela no centro
+			handler.addObject(new InimigoBasico(32,32, ID.InimigoBasico));*/
+		}
 	
-	public synchronized void start() {//� chamado na classe Window para inicializar o thread
-	//M�todo usado em Window
+	
+	public synchronized void start() {
+	/*� chamado na classe Window para inicializar o thread
+	M�todo usado em Window*/
 		thread = new Thread(this);//Instancia o private thread chamado nesta classe
 		thread.start();//Inicia o thread
 		running = true;//Diz que o thread est� on e chama o m�todo run() em while(running)
@@ -113,8 +109,10 @@ public class MainStage extends Canvas implements Runnable {
 	
 	private void tick(){//Onde rola a l�gica do jogo
 		handler.tick();//Executa o m�todo criado na classe Handler
-		hud.tick();
-		spawn.tick();
+		if(hud.getLevel() == 0)
+			menuState.tick();
+		if(hud.getLevel() == 1)
+			hud.tick();
 	}
 	
 	private void render(){
@@ -132,7 +130,10 @@ public class MainStage extends Canvas implements Runnable {
 		
 		handler.render(g);//Renderiza os GameObjects na tela chamando o m�todo handler
 		
-		hud.render(g);//Renderiza o hud
+		if(hud.getLevel() == 0)
+			menuState.render(g);
+		if(hud.getLevel() == 1)
+			hud.render(g);
 		
 		g.dispose();
 		bs.show();

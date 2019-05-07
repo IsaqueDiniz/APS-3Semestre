@@ -15,7 +15,7 @@ public class Handler {//Mantém, atualiza e renderiza TODOS os GameObjects
 			GameObject tempObject = object.get(i);
 			//Instancia um objeto temporário e pega o i como seu id
 			
-			tempObject.tick();//Executa este método(?)
+			tempObject.tick();//Executa o tick do objeto, seja ele qual for
 		}
 	}
 	

@@ -13,9 +13,8 @@ public class HUD {
 	private int segundos = 0;
 	private int minutos = 0;
 
-	private long gameTimer = 0;
 	private int tempo = 100;
-	private int level = 0;
+	protected int level = 1;
 	
 	public void tick() {
 		this.mSegundos++;
@@ -27,8 +26,8 @@ public class HUD {
 					this.segundos = 0;
 					this.minutos++;
 				}
-				if(this.segundos == 5.0)
-					this.level++;
+				/*if(this.segundos == 5.0 && this.mSegundos == 1)
+					this.level++;*/
 				
 				
 	}
@@ -41,6 +40,14 @@ public class HUD {
 		
 	}
 	
+	public int getMSegundos() {
+		return mSegundos;
+	}
+	
+	public void setMSegundos(int mSegundos) {
+		this.mSegundos = mSegundos;
+	}
+
 	public void setSegundos (int segundos) {
 		this.segundos = segundos;
 	}
