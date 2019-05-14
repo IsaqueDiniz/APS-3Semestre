@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args)
 	{
-		JFrame window = new JFrame("Dragon Tale");
+		JFrame window = new JFrame("7 dias");
 		window.setContentPane(new Janela());
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
