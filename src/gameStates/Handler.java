@@ -29,7 +29,7 @@ public class Handler {//Mantém, atualiza e renderiza TODOS os GameObjects
 	}
 	
 	public void removeObject(Entidades object) {
-		this.object.remove(object);
+		object.setY(-100);;
 	}
 
 }

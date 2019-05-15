@@ -17,10 +17,8 @@ public class Player extends Entidades{
 	
 	
 
-	public Player(float x, float y, int w, int h,int scale) {
+	public Player(float x, float y,int scale) {
 		super(x,y);
-		pontos = 0;
-		width = w ; height = h; this.scale=scale;
 		animDir = new Animacao(250, Assets.playerDir);
 		animEsq = new Animacao(250, Assets.playerEsq);
 	}
@@ -30,10 +28,10 @@ public class Player extends Entidades{
 	}
 
 	public void update() {//Loop
-		if(x>0)
+		if(x>=0)
 		x += velX;
 		else
-			x = 1;
+			x = 10;
 		if(x>1250)
 				x = 1210;		
 		animDir.update();

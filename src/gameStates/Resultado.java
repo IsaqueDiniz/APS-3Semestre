@@ -2,16 +2,18 @@ package gameStates;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 
 import entidades.Player;
 
 public class Resultado extends GameState{
-	
 	private Player player;
+	private int p;
 	
-	public Resultado(Gerenciador ger){
+	public Resultado(Gerenciador ger, int p){
 		this.ger = ger;
-		player = new Player(0, 0, 0, 0, 0);
+		player = new Player(0, 0, 0);
+		this.p = p;
 	}
 
 	public void init() {
@@ -28,9 +30,10 @@ public class Resultado extends GameState{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1280, 720);
 		g.setColor(Color.WHITE);
-		if(player.getPontos() < 50)
+		g.drawString("Pontuação: " + p, 540, 200);
+		if(p < 30)
 		g.drawString("Final:Vizinhança completamente poluída", 540, 380);
-		else if(player.getPontos() < 100)
+		else if(p < 90)
 		g.drawString("Final:Vizinhança parcialmente poluída", 540, 380);
 		else
 		g.drawString("Final:Vizinhança completamente limpa", 540, 380);
@@ -38,7 +41,8 @@ public class Resultado extends GameState{
 	}
 
 	public void keyPressed(int k) {
-		// TODO Auto-generated method stub
+		if(k == KeyEvent.VK_ENTER)
+			ger.setState(Gerenciador.MENU);
 		
 	}
 

@@ -5,7 +5,7 @@ import gameStates.Menu;
 public class Gerenciador {
 	
 	private GameState[] gameStates;
-	private int currentState;
+	private int currentState,p;
 	
 	public static final int TOTALSTATES = 3;
 	public static final int OPCOES = -1;
@@ -28,7 +28,7 @@ public class Gerenciador {
 		if(state == LEVEL1)
 			gameStates[state] = new Level1(this);
 		if(state == RESULTADO)
-			gameStates[state] = new Resultado(this);
+			gameStates[state] = new Resultado(this,p);
 		
 	}
 	private void unloadState(int state)
@@ -67,5 +67,8 @@ public class Gerenciador {
 	public void keyReleased(int k)
 	{
 		gameStates[currentState].keyReleased(k);
+	}
+	public void setP(int p) {
+		this.p = p;
 	}
 }
