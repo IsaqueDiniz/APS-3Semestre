@@ -33,7 +33,7 @@ public class Resultado extends GameState{
 		g.drawString("Pontuação: " + p, 540, 200);
 		if(p < 30)
 		g.drawString("Final:Vizinhança completamente poluída", 540, 380);
-		else if(p < 90)
+		else if(p < 80)
 		g.drawString("Final:Vizinhança parcialmente poluída", 540, 380);
 		else
 		g.drawString("Final:Vizinhança completamente limpa", 540, 380);

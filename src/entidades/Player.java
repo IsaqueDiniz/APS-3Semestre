@@ -13,6 +13,7 @@ public class Player extends Entidades{
 	private Animacao animDir,animEsq;
 	private TileMap tm;
 	private int evento, pontos;
+	private float velX = 0;
 	
 	
 	
@@ -59,6 +60,14 @@ public class Player extends Entidades{
 			return animDir.getCurrentFrame();
 		else
 			return Assets.playerDir[0];
+	}
+
+	public float getVelX() {
+		return velX;
+	}
+
+	public void setVelX(float velX) {
+		this.velX = velX;
 	}
 
 	public int getEvento() {

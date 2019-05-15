@@ -13,12 +13,12 @@ import gameStates.Gerenciador;
 public class Janela extends JPanel implements Runnable, KeyListener{
 
 	//dimensions
-	public static final int WIDTH = 1280, HEIGHT = 720, SCALE = 1;
+	public static final int WIDTH = 800, HEIGHT = 600, SCALE = 1;
 	
 	//game thread
 	private Thread thread;
 	private boolean running;
-	private int FPS = 60;
+	private int frames,FPS = 60;
 	private long targetTime = 1000/FPS;
 	
 	//image
@@ -29,7 +29,7 @@ public class Janela extends JPanel implements Runnable, KeyListener{
 	
 	public Janela(){
 		super();
-		setPreferredSize(new Dimension(1280, 720));
+		setPreferredSize(new Dimension(800, 600));
 		setFocusable(true);
 		requestFocus();
 		

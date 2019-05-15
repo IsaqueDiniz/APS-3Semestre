@@ -2,22 +2,25 @@ package gameStates;
 
 import tileMap.*;
 import entidades.Assets;
+import entidades.KeyInput;
 import entidades.Lixo;
 import entidades.Player;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class Level1 extends GameState {
 	
 	private Background bg,pbg;
 	private TileMap tm;
 	private Player player;
-	private int mSegundos,segundos,minutos,p;
+	private int mSegundos,segundos,minutos,p,status;
 	private float off;
 	private Handler handler;
+	private KeyInput keyInput;
 	
-	public Level1(Gerenciador ger) {//Uma vez
+		public Level1(Gerenciador ger) {//Uma vez
 		this.ger = ger;
 		init();
 		
@@ -30,20 +33,20 @@ public class Level1 extends GameState {
 		//sheet = new SpriteSheet(test);
 		Assets.init();
 		
-		player = new Player(10,580,1);
 		
+		player = new Player(10,450,1);
 		handler = new Handler();
 		
-		handler.addObject(new Lixo(1,230,580));
-		handler.addObject(new Lixo(2,410,580));
-		handler.addObject(new Lixo(3,530,580));
-		handler.addObject(new Lixo(1,650,580));
-		handler.addObject(new Lixo(3,790,580));
-		handler.addObject(new Lixo(3,930,580));
-		handler.addObject(new Lixo(2,1150,580));
-		handler.addObject(new Lixo(2,1430,580));
-		handler.addObject(new Lixo(2,1660,580));
-		handler.addObject(new Lixo(4,230,580));
+		handler.addObject(new Lixo(1,230,450));
+		handler.addObject(new Lixo(2,410,450));
+		handler.addObject(new Lixo(3,530,450));
+		handler.addObject(new Lixo(1,650,450));
+		handler.addObject(new Lixo(3,790,450));
+		handler.addObject(new Lixo(3,930,450));
+		handler.addObject(new Lixo(2,1150,450));
+		handler.addObject(new Lixo(2,1430,450));
+		handler.addObject(new Lixo(2,1540,450));
+		handler.addObject(new Lixo(4,230,450));
 		
 		
 		
@@ -78,6 +81,7 @@ public class Level1 extends GameState {
 	public void draw(Graphics2D g) {//Loop
 		off = player.getx();
 		//Background
+		//bg.setPosition(-off*0.3, 0);
 		bg.draw(g);
 		//pbg.setPosition(-off*2, 0);
 		//pbg.draw(g);
@@ -103,10 +107,10 @@ public class Level1 extends GameState {
 		//g.drawImage(Assets.building1, x, y,256,256, null);
 		g.setColor(Color.WHITE);
 		
-		g.drawString("Preciso ir trabalhar, ir ao restaurante e voltar para casa", 20 - player.getx(), 440);
+		//g.drawString("", 20 - player.getx(), 440);
 		
-		g.drawString("Tempo: " + this.minutos + ":" + this.segundos+":"+ this.mSegundos,590,25);
-		g.drawString("X:" + off,590,60);
+		g.drawString("Tempo: " + this.minutos + ":" + this.segundos+":"+ this.mSegundos,400,25);
+		g.drawString("X:" + off,400,60);
 		//g.drawString("Pontuação: ", 540, 200);
 	}
 	
@@ -121,23 +125,42 @@ public class Level1 extends GameState {
 		}
 		if(k == KeyEvent.VK_E) {
 			if(off == 110) {
-			handler.removeObject(handler.object.get(0));ger.setP(p+=10);}
+				handler.removeObject(handler.object.get(0));
+				System.out.print(handler.object.get(0).gety());
+				if(handler.object.get(0).gety() == 730)
+					ger.setP(p+=10);}
 			if(off == 210) {
-				handler.removeObject(handler.object.get(1));ger.setP(p+=10);}
+				handler.removeObject(handler.object.get(1));
+				if(handler.object.get(1).gety() == 600)
+					ger.setP(p+=10);}
 			if(off == 270) {
-				handler.removeObject(handler.object.get(2));ger.setP(p+=10);}
+				handler.removeObject(handler.object.get(2));
+				if(handler.object.get(2).gety() == 600)
+					ger.setP(p+=10);}
 			if(off == 330) {
-				handler.removeObject(handler.object.get(3));ger.setP(p+=10);}
+				handler.removeObject(handler.object.get(3));
+				if(handler.object.get(3).gety() == 600)
+					ger.setP(p+=10);}
 			if(off == 390) {
-				handler.removeObject(handler.object.get(4));ger.setP(p+=10);}
+				handler.removeObject(handler.object.get(4));
+				if(handler.object.get(4).gety() == 600)
+					ger.setP(p+=10);}
 			if(off == 470) {
-				handler.removeObject(handler.object.get(5));ger.setP(p+=10);}
+				handler.removeObject(handler.object.get(5));
+				if(handler.object.get(5).gety() == 600)
+					ger.setP(p+=10);}
 			if(off == 570) {
-				handler.removeObject(handler.object.get(6));ger.setP(p+=10);}
+				handler.removeObject(handler.object.get(6));
+				if(handler.object.get(6).gety() == 600)
+					ger.setP(p+=10);}
 			if(off == 710) {
-				handler.removeObject(handler.object.get(7));ger.setP(p+=10);}
-			if(off == 830) {
-				handler.removeObject(handler.object.get(8));ger.setP(p+=10);}
+				handler.removeObject(handler.object.get(7));
+				if(handler.object.get(7).gety() == 600)
+					ger.setP(p+=10);}
+			if(off == 770) {
+				handler.removeObject(handler.object.get(8));
+				if(handler.object.get(8).gety() == 600)
+					ger.setP(p+=10);}
 			
 			if(player.getx() < 30)
 			ger.setState(Gerenciador.RESULTADO);

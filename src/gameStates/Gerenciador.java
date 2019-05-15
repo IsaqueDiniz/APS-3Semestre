@@ -71,4 +71,12 @@ public class Gerenciador {
 	public void setP(int p) {
 		this.p = p;
 	}
+	public int getCurrentState() {
+		return currentState;
+	}
+	public void setCurrentState(int currentState) {
+		this.currentState = currentState;
+	}
+	
+	
 }
