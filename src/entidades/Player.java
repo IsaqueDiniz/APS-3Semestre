@@ -12,11 +12,15 @@ public class Player extends Entidades{
 	private BufferedImage image;
 	private Animacao animDir,animEsq;
 	private TileMap tm;
+	private int evento, pontos;
 	
 	
-	public Player(int x, float y, int w, int h,int scale, String s) {
-		
-		this.x = x; this.y = y; width = w ; height = h; this.scale=scale;
+	
+
+	public Player(float x, float y, int w, int h,int scale) {
+		super(x,y);
+		pontos = 0;
+		width = w ; height = h; this.scale=scale;
 		animDir = new Animacao(250, Assets.playerDir);
 		animEsq = new Animacao(250, Assets.playerEsq);
 	}
@@ -31,14 +35,13 @@ public class Player extends Entidades{
 		else
 			x = 1;
 		if(x>1250)
-				x = 1210;
-		
-		
+				x = 1210;		
 		animDir.update();
 		animEsq.update();
+				
 	}
 
-	public void draw(Graphics2D g) {//Loop
+	public void draw(Graphics2D g,float off) {//Loop
 		//g.fillRect(x, y, 64, 64);
 		
 		/*width = image.getWidth();
@@ -59,5 +62,24 @@ public class Player extends Entidades{
 		else
 			return Assets.playerDir[0];
 	}
+
+	public int getEvento() {
+		return evento;
+	}
+
+	public void setEvento(int evento) {
+		this.evento = evento;
+	}
+
+	public int getPontos() {
+		return pontos;
+	}
+
+	public void setPontos(int pontos) {
+		this.pontos = pontos;
+	}
+	
+	
+	
 	
 }

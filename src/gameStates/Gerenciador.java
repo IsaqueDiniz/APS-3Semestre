@@ -11,6 +11,7 @@ public class Gerenciador {
 	public static final int OPCOES = -1;
 	public static final int MENU = 0;
 	public static final int LEVEL1 = 1;
+	public static final int RESULTADO = 2;
 	
 	public Gerenciador()
 	{
@@ -26,6 +27,8 @@ public class Gerenciador {
 			gameStates[state] = new Menu(this);
 		if(state == LEVEL1)
 			gameStates[state] = new Level1(this);
+		if(state == RESULTADO)
+			gameStates[state] = new Resultado(this);
 		
 	}
 	private void unloadState(int state)

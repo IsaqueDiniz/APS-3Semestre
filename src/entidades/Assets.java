@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 	
-	public static BufferedImage ground,player,casa1,nulo;
+	public static BufferedImage ground,player,casa1,nulo,lixo1,casa,empresa,lixo2,lixo3;
 	public static BufferedImage[] playerDir,playerEsq;
 	public static final int width = 64;
 	public static final int height = 64;
@@ -15,6 +15,11 @@ public class Assets {
 		nulo = sheet.crop(width*6, 0, width, height);
 		ground = sheet.crop(width*5, 0, width, height);
 		casa1 = sheet.crop(width*2, 0, width*3, height*2);
+		lixo1 = sheet.crop(width*7, 0, width, height);
+		lixo2 = sheet.crop(width*8, 0, width, height);
+		lixo3 = sheet.crop(width*9, 0, width, height);
+		casa = sheet.crop(width*11, 0, width*3, height*2);
+		empresa = sheet.crop(width*15, 0, width*4, height*2);
 		
 		
 		//Player Animations

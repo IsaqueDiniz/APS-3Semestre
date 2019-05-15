@@ -9,7 +9,7 @@ public abstract class Entidades {
 	
 	protected float x;
 	protected float y;
-	protected int velX;
+	protected float velX;
 	protected float velY;
 	
 	protected int width;
@@ -17,10 +17,10 @@ public abstract class Entidades {
 	protected int scale;
 	
 	public abstract void update();
-	public abstract void draw(Graphics2D g);
+	public abstract void draw(Graphics2D g,float off);
 	
-	public Entidades() {
-		
+	public Entidades(float x, float y) {
+		this.x = x;this.y=y;
 	}
 	
 	public float getx() { return (float)x; }
@@ -32,10 +32,10 @@ public abstract class Entidades {
 		x += velX;
 	}
 	
-	public int getVelX() {
+	public float getVelX() {
 		return velX;
 	}
-	public void setVelX(int velX) {
+	public void setVelX(float velX) {
 		this.velX = velX;
 	}
 	public float getVelY() {

@@ -30,6 +30,12 @@ public class TileMap {
 				if(getTile(x,y) == Tile.casa1Tile)
 				getTile(x,y).draw(g,(int) (x*Tile.TILEWIDTH - xMin),
 						(int) (y*Tile.TILEHEIGHT - 0), 10);
+				else if( getTile(x,y) == Tile.casaTile)
+				getTile(x,y).draw(g,(int) (x*Tile.TILEWIDTH - xMin),
+							(int) (y*Tile.TILEHEIGHT - 0), 6);
+				else if( getTile(x,y) == Tile.empresaTile)
+					getTile(x,y).draw(g,(int) (x*Tile.TILEWIDTH - xMin),
+								(int) (y*Tile.TILEHEIGHT - 0), 5);
 				else
 				getTile(x,y).draw(g,(int) (x*Tile.TILEWIDTH - 0),
 						(int) (y*Tile.TILEHEIGHT - 0), 1);
