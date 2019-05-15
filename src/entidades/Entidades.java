@@ -7,10 +7,10 @@ import java.awt.Graphics2D;
 
 public abstract class Entidades {
 	
-	protected int x;
-	protected int y;
+	protected float x;
+	protected float y;
 	protected int velX;
-	protected int velY;
+	protected float velY;
 	
 	protected int width;
 	protected int height;
@@ -23,12 +23,12 @@ public abstract class Entidades {
 		
 	}
 	
-	public int getx() { return (int)x; }
-	public int gety() { return (int)y; }
-	public int getWidth() { return width; }
-	public int getHeight() { return height; }
+	public float getx() { return (float)x; }
+	public float gety() { return (float)y; }
+	public float getWidth() { return width; }
+	public float getHeight() { return height; }
 	
-	public void setVector(int velX) {
+	public void setVector(float velX) {
 		x += velX;
 	}
 	
@@ -38,10 +38,10 @@ public abstract class Entidades {
 	public void setVelX(int velX) {
 		this.velX = velX;
 	}
-	public int getVelY() {
+	public float getVelY() {
 		return velY;
 	}
-	public void setVelY(int velY) {
+	public void setVelY(float velY) {
 		this.velY = velY;
 	}
 

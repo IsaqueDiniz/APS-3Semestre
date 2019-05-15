@@ -4,28 +4,21 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
+import tileMap.Camera;
+import tileMap.TileMap;
+
 public class Player extends Entidades{
 	
 	private BufferedImage image;
 	private Animacao animDir,animEsq;
+	private TileMap tm;
 	
 	
-	public Player(int x, int y, int w, int h,int scale, String s) {
+	public Player(int x, float y, int w, int h,int scale, String s) {
 		
 		this.x = x; this.y = y; width = w ; height = h; this.scale=scale;
-		
-		/*try {
-			image = ImageIO.read(
-				getClass().getResourceAsStream(s)
-			);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}*/
-		
-		
-		animDir = new Animacao(150, Assets.playerDir);
-		animEsq = new Animacao(150, Assets.playerEsq);
+		animDir = new Animacao(250, Assets.playerDir);
+		animEsq = new Animacao(250, Assets.playerEsq);
 	}
 	
 	public void init() {
@@ -33,7 +26,14 @@ public class Player extends Entidades{
 	}
 
 	public void update() {//Loop
+		if(x>0)
 		x += velX;
+		else
+			x = 1;
+		if(x>1250)
+				x = 1210;
+		
+		
 		animDir.update();
 		animEsq.update();
 	}

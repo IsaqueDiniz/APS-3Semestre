@@ -1,186 +1,83 @@
 package tileMap;
 
-import java.awt.*;
-import java.awt.image.*;
+import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-import java.io.*;
-import javax.imageio.ImageIO;
-
-import main.Janela;
+import entidades.Assets;
+import entidades.Player;
+import gameStates.Level1;
+import main.Utilidades;
 
 public class TileMap {
 	
-	// position
-	private double x;
-	private double y;
+	private Level1 level1;
+	private int width,height,spawnX,spawnY;
+	private int[][] tiles;
+	private int xOff ;
 	
-	// bounds
-	private int xmin;
-	private int ymin;
-	private int xmax;
-	private int ymax;
-	
-	private double tween;
-	
-	// map
-	private int[][] map;
-	private int tileSize;
-	private int numRows;
-	private int numCols;
-	private int width;
-	private int height;
-	
-	// tileset
-	private BufferedImage tileset;
-	private int numTilesAcross;
-	private Tile[][] tiles;
-	
-	// drawing
-	private int rowOffset;
-	private int colOffset;
-	private int numRowsToDraw;
-	private int numColsToDraw;
-	
-	public TileMap(int tileSize) {
-		this.tileSize = tileSize;
-		numRowsToDraw = Janela.HEIGHT / tileSize + 2;
-		numColsToDraw = Janela.WIDTH / tileSize + 2;
-		tween = 0.07;
+	public TileMap(String path){
+		loadMap(path);
 	}
 	
-	public void loadTiles(String s) {
+	public void update() {
 		
-		try {
+	}
+	
+	public void draw(Graphics2D g,int xMin) {
+		for(int y = 0;y < height; y++)
+			for (int x = 0;x < width; x++) {
+				if(getTile(x,y) == Tile.casa1Tile)
+				getTile(x,y).draw(g,(int) (x*Tile.TILEWIDTH - xMin),
+						(int) (y*Tile.TILEHEIGHT - 0), 10);
+				else
+				getTile(x,y).draw(g,(int) (x*Tile.TILEWIDTH - 0),
+						(int) (y*Tile.TILEHEIGHT - 0), 1);
+			}
+				
+	}
+	
+	public Tile getTile(int x, int y) {
+		Tile t = Tile.tiles[tiles[x][y]];//Chama o array com todos os tiles do jogo
+		if(t == null)
+			return Tile.nuloTile;
+		return t;
+	}
+	
+	public void loadMap(String path) {
+		String file = Utilidades.loadFileAsString(path);
+		String[] tokens = file.split("\\s+");
+		width = Utilidades.parseInt(tokens[0]);
+		height = Utilidades.parseInt(tokens[1]);
+		spawnX = Utilidades.parseInt(tokens[2]);
+		spawnY = Utilidades.parseInt(tokens[3]);
+			
+		tiles= new int[width][height];
+		for(int y = 0;y < height; y++)
+			for (int x = 0;x < width; x++) {
+				tiles[x][y] = Utilidades.parseInt(tokens[(x + y * width + 4)]);
+			}
+	}
 
-			tileset = ImageIO.read(
-				getClass().getResourceAsStream(s)
-			);
-			numTilesAcross = tileset.getWidth() / tileSize;
-			tiles = new Tile[2][numTilesAcross];
-			
-			BufferedImage subimage;
-			for(int col = 0; col < numTilesAcross; col++) {
-				subimage = tileset.getSubimage(
-							col * tileSize,
-							0,
-							tileSize,
-							tileSize
-						);
-				tiles[0][col] = new Tile(subimage, Tile.NORMAL);
-				subimage = tileset.getSubimage(
-							col * tileSize,
-							tileSize,
-							tileSize,
-							tileSize
-						);
-				tiles[1][col] = new Tile(subimage, Tile.BLOCKED);
-			}
-			
+	public void setXOff(int xOff) {
+		this.xOff = xOff;
+	}
+	
+	public void keyPressed(int k) {
+		if(k == KeyEvent.VK_RIGHT) {
+			System.out.println("oi");;
 		}
-		catch(Exception e) {
-			e.printStackTrace();
+		if(k == KeyEvent.VK_LEFT) {
 		}
-		
-	}
-	
-	public void loadMap(String s) {
-		
-		try {
-			
-			InputStream in = getClass().getResourceAsStream(s);
-			BufferedReader br = new BufferedReader(
-						new InputStreamReader(in)
-					);
-			
-			numCols = Integer.parseInt(br.readLine());
-			numRows = Integer.parseInt(br.readLine());
-			map = new int[numRows][numCols];
-			width = numCols * tileSize;
-			height = numRows * tileSize;
-			
-			String delims = "\\s+";
-			for(int row = 0; row < numRows; row++) {
-				String line = br.readLine();
-				String[] tokens = line.split(delims);
-				for(int col = 0; col < numCols; col++) {
-					map[row][col] = Integer.parseInt(tokens[col]);
-				}
-			}
-			
 		}
-		catch(Exception e) {
-			e.printStackTrace();
+	
+	
+	public void keyReleased(int k) {
+		if(k == KeyEvent.VK_RIGHT){
 		}
-		
-	}
-	
-	public int getTileSize() { return tileSize; }
-	public int getx() { return (int)x; }
-	public int gety() { return (int)y; }
-	public int getWidth() { return width; }
-	public int getHeight() { return height; }
-	
-	public int getType(int row, int col) {
-		int rc = map[row][col];
-		int r = rc / numTilesAcross;
-		int c = rc % numTilesAcross;
-		return tiles[r][c].getType();
-	}
-	
-	public void setPosition(double x, double y) {
-		
-		this.x += (x - this.x) * tween;
-		this.y += (y - this.y) * tween;
-		
-		fixBounds();
-		
-		colOffset = (int)-this.x / tileSize;
-		rowOffset = (int)-this.y / tileSize;
-		
-	}
-	
-	private void fixBounds() {
-		if(x < xmin) x = xmin;
-		if(y < ymin) y = ymin;
-		if(x > xmax) x = xmax;
-		if(y > ymax) y = ymax;
-	}
-	
-	public void draw(Graphics2D g) {
-		
-		for(
-			int row = rowOffset;
-			row < rowOffset + numRowsToDraw;
-			row++) {
-			
-			if(row >= numRows) break;
-			
-			for(
-				int col = colOffset;
-				col < colOffset + numColsToDraw;
-				col++) {
-				
-				if(col >= numCols) break;
-				
-				if(map[row][col] == 0) continue;
-				
-				int rc = map[row][col];
-				int r = rc / numTilesAcross;
-				int c = rc % numTilesAcross;
-				
-				g.drawImage(
-					tiles[r][c].getImage(),
-					(int)x + col * tileSize,
-					(int)y + row * tileSize,
-					null
-				);
-				
-			}
-			
+		if(k == KeyEvent.VK_LEFT) {
 		}
-		
 	}
-	
 }
 
 

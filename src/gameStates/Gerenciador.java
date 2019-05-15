@@ -7,7 +7,7 @@ public class Gerenciador {
 	private GameState[] gameStates;
 	private int currentState;
 	
-	public static final int TOTALSTATES = 7;
+	public static final int TOTALSTATES = 3;
 	public static final int OPCOES = -1;
 	public static final int MENU = 0;
 	public static final int LEVEL1 = 1;
