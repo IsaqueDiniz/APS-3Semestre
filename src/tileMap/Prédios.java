@@ -24,6 +24,18 @@ public class Prédios extends Tile{
 		}*/
 	}
 	
+	public Prédios(int id,String s){
+		super(Assets.casa1, id);
+		try {
+			image = ImageIO.read(
+				getClass().getResourceAsStream(s)
+			);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void draw(Graphics2D g, int x, int y, int w, int h, int s) {
 		/*w = image.getWidth();
 		h = image.getHeight();

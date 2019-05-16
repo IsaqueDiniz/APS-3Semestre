@@ -19,6 +19,7 @@ public class Level1 extends GameState {
 	private float off;
 	private Handler handler;
 	private KeyInput keyInput;
+	private Audio audio;
 	
 		public Level1(Gerenciador ger) {//Uma vez
 		this.ger = ger;
@@ -57,6 +58,8 @@ public class Level1 extends GameState {
 		p2 = new Prédios("/Background/casa2.png");
 		p3 = new Prédios("/Background/casa3.png");*/
 		p = player.getPontos();
+		audio = new Audio();
+		audio.playSong("Resources/Audio/faixa5.wav");
 	}
 	
 	
@@ -110,7 +113,7 @@ public class Level1 extends GameState {
 		//g.drawString("", 20 - player.getx(), 440);
 		
 		g.drawString("Tempo: " + this.minutos + ":" + this.segundos+":"+ this.mSegundos,400,25);
-		g.drawString("X:" + off,400,60);
+		//g.drawString("X:" + off,400,60);
 		//g.drawString("Pontuação: ", 540, 200);
 	}
 	
@@ -163,6 +166,7 @@ public class Level1 extends GameState {
 					ger.setP(p+=10);}
 			
 			if(player.getx() < 30)
+			audio.setJ(1);
 			ger.setState(Gerenciador.RESULTADO);
 		}
 		

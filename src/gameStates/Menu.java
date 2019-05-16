@@ -14,8 +14,8 @@ public class Menu extends GameState {
 	
 	private String[] options = {
 		"Start",
-		"Help",
-		"Quit"
+		"Créditos",
+		"Sair"
 	};
 	
 	public Menu(Gerenciador ger) {
