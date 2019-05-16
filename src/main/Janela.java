@@ -8,6 +8,7 @@ import java.awt.*;
 
 import javax.swing.JPanel;
 
+import gameStates.Audio;
 import gameStates.Gerenciador;
 
 public class Janela extends JPanel implements Runnable, KeyListener{
@@ -18,7 +19,7 @@ public class Janela extends JPanel implements Runnable, KeyListener{
 	//game thread
 	private Thread thread;
 	private boolean running;
-	private int frames,FPS = 60;
+	private int FPS = 60;
 	private long targetTime = 1000/FPS;
 	
 	//image
@@ -26,6 +27,8 @@ public class Janela extends JPanel implements Runnable, KeyListener{
 	private Graphics2D g;
 	
 	private Gerenciador ger;
+	
+	private Audio audio;
 	
 	public Janela(){
 		super();
@@ -50,6 +53,8 @@ public class Janela extends JPanel implements Runnable, KeyListener{
 		g = (Graphics2D) image.getGraphics();
 		running = true;
 		ger = new Gerenciador();
+		audio = new Audio();
+		audio.playSong("Resources/Audio/faixa5.wav");
 	}
 	public void run()
 	{

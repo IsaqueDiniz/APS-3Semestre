@@ -30,13 +30,13 @@ public class Resultado extends GameState{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1280, 720);
 		g.setColor(Color.WHITE);
-		g.drawString("Pontuação: " + p, 540, 200);
+		g.drawString("Pontuação: " + p, 370, 200);
 		if(p < 30)
-		g.drawString("Final:Vizinhança completamente poluída", 540, 380);
+		g.drawString("Vizinhança completamente poluída", 320, 280);
 		else if(p < 80)
-		g.drawString("Final:Vizinhança parcialmente poluída", 540, 380);
+		g.drawString("Vizinhança parcialmente poluída", 320, 280);
 		else
-		g.drawString("Final:Vizinhança completamente limpa", 540, 380);
+		g.drawString("Vizinhança completamente limpa", 320, 280);
 		
 	}
 

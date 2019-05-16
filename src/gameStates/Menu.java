@@ -8,14 +8,14 @@ import java.awt.event.KeyEvent;
 public class Menu extends GameState {
 	
 	
-	private Background bg;
+	private Background bg,b1,b2,b3;
 	
 	private int currentChoice = 0;
 	
 	private String[] options = {
-		"Start",
-		"Créditos",
-		"Sair"
+		"->",
+		"->",
+		"->"
 	};
 	
 	public Menu(Gerenciador ger) {
@@ -25,6 +25,9 @@ public class Menu extends GameState {
 		try {
 			
 			bg = new Background("/Background/menuBg.png", 1);
+			b1 = new Background("/Menu/startBtn.png", 1);
+			b2 = new Background("/Menu/creditosBtn.png", 1);
+			b3 = new Background("/Menu/sairBtn.png", 1);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -46,6 +49,9 @@ public class Menu extends GameState {
 		
 		// draw bg
 		bg.draw(g);
+		b1.draw(g,20, 0,5);
+		b2.draw(g,20, 100,5);
+		b3.draw(g,20, 200,5);
 		
 		// draw title
 		
@@ -55,9 +61,10 @@ public class Menu extends GameState {
 				g.setColor(Color.WHITE);
 			}
 			else {
-				g.setColor(Color.RED);
+				g.setColor(Color.black);
 			}
-			g.drawString(options[i], 145, 140 + i * 15);
+			g.drawString(options[i], 10, 140 + i * 120);
+			
 		}
 		
 	}
@@ -67,10 +74,10 @@ public class Menu extends GameState {
 		
 		//start
 		if(currentChoice == 0) {
-			ger.setState(Gerenciador.LEVEL1);
+			ger.setState(Gerenciador.PREFASE);
 		}
 		if(currentChoice == 1) {
-			ger.setState(Gerenciador.OPCOES);
+			ger.setState(Gerenciador.CREDITOS);
 		}
 		if(currentChoice == 2) {
 			System.exit(0);

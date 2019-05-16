@@ -7,11 +7,12 @@ public class Gerenciador {
 	private GameState[] gameStates;
 	private int currentState,p;
 	
-	public static final int TOTALSTATES = 3;
-	public static final int OPCOES = -1;
+	public static final int TOTALSTATES = 5;
+	public static final int CREDITOS = 3;
 	public static final int MENU = 0;
 	public static final int LEVEL1 = 1;
 	public static final int RESULTADO = 2;
+	public static final int PREFASE = 4;
 	
 	public Gerenciador()
 	{
@@ -25,6 +26,10 @@ public class Gerenciador {
 	{
 		if(state ==MENU)
 			gameStates[state] = new Menu(this);
+		if(state == CREDITOS)
+			gameStates[state] = new Creditos(this);
+		if(state == PREFASE)
+			gameStates[state] = new PreFase(this);
 		if(state == LEVEL1)
 			gameStates[state] = new Level1(this);
 		if(state == RESULTADO)

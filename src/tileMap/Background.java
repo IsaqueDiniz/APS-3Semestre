@@ -56,4 +56,11 @@ public class Background {
 		}
 	}
 	
+public void draw(Graphics2D g,int x,int y,int s) {
+		
+		g.drawImage(image, x, y,64*s,64*s, null);
+		
+	}
+	
+	
 }

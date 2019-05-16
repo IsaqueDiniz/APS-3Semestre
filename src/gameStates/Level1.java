@@ -18,8 +18,7 @@ public class Level1 extends GameState {
 	private int mSegundos,segundos,minutos,p,status;
 	private float off;
 	private Handler handler;
-	private KeyInput keyInput;
-	private Audio audio;
+	
 	
 		public Level1(Gerenciador ger) {//Uma vez
 		this.ger = ger;
@@ -58,8 +57,7 @@ public class Level1 extends GameState {
 		p2 = new Prédios("/Background/casa2.png");
 		p3 = new Prédios("/Background/casa3.png");*/
 		p = player.getPontos();
-		audio = new Audio();
-		audio.playSong("Resources/Audio/faixa5.wav");
+		
 	}
 	
 	
@@ -101,8 +99,6 @@ public class Level1 extends GameState {
 		
 		handler.draw(g, off);
 		
-		
-		
 		/*p1.draw(g, 600, 216, 64, 64, 6);
 		p2.draw(g, 1000, 216, 64, 64, 6);
 		p3.draw(g, 1500, 216, 64, 64, 6);*/
@@ -113,8 +109,10 @@ public class Level1 extends GameState {
 		//g.drawString("", 20 - player.getx(), 440);
 		
 		g.drawString("Tempo: " + this.minutos + ":" + this.segundos+":"+ this.mSegundos,400,25);
-		//g.drawString("X:" + off,400,60);
+		g.drawString("Pressione E para interagir com a cama e os objetos",270 - off,90);
 		//g.drawString("Pontuação: ", 540, 200);
+		if(segundos == 5 && mSegundos == 1)
+			ger.setState(ger.RESULTADO);
 	}
 	
 	public void keyPressed(int k) {
@@ -166,7 +164,6 @@ public class Level1 extends GameState {
 					ger.setP(p+=10);}
 			
 			if(player.getx() < 30)
-			audio.setJ(1);
 			ger.setState(Gerenciador.RESULTADO);
 		}
 		
